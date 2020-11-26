@@ -102,7 +102,7 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia **MIT** - mira el archivo [LICENSE.md](https://github.com/Erik172/LICENSE.md) para detalles
+Este proyecto está bajo la Licencia **MIT** - mira el archivo [LICENSE.md](https://github.com/Erik172/PlatziScraper/LICENSE.md) para detalles
 
 ## Expresiones de Gratitud 🎁
 
