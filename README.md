@@ -84,7 +84,7 @@ _Agrega notas adicionales sobre como hacer deploy_
 
 ## Contribuyendo 🖇️
 
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
+Por favor lee el [CONTRIBUTING.md](https://github.com/Erik172/PlatziScraper/CONTRIBUTING.md) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
 
 <!-- ## Wiki 📖
 
@@ -102,7 +102,7 @@ Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones
 
 ## Licencia 📄
 
-Este proyecto está bajo la Licencia **MIT** - mira el archivo [LICENSE.md](LICENSE.md) para detalles
+Este proyecto está bajo la Licencia **MIT** - mira el archivo [LICENSE.md](https://github.com/Erik172/LICENSE.md) para detalles
 
 ## Expresiones de Gratitud 🎁
 
