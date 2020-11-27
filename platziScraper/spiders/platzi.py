@@ -43,7 +43,7 @@ class PlatziSpider(scrapy.Spider):
 
             for x in range(len(learningPathTitle)):
                 yield {
-                    '_id': x,
+                    '_id': None,
                     'learning path': learningPathTitle[x],
                     'url': URL + learningPathLink[x],
                     'badge': learningPathBadge[x]   
@@ -71,6 +71,6 @@ class PlatziSpider(scrapy.Spider):
                 'course': courseTitle,
                 'description': courseDescription,
                 'teacher': courseTeachers,
-                'url': kwargs['link'],
+                'url': URL + kwargs['link'],
                 'badge': courseBadge
             }

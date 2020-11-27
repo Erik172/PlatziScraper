@@ -25,7 +25,7 @@ class BlogSpider(scrapy.Spider):
 
         for x in range(len(blogTitle)):
             yield {
-                '_id': x,
+                '_id': None,
                 'name': blogTitle[x],
                 'description': blogDescription[x],
                 'author': blogAuthor[x],
