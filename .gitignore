@@ -4,3 +4,7 @@ setup.py
 build/
 scrapinghub.yml
 project.egg-info/
+PlatziScraper.egg-info/
+
+# Todavia no listo
+profile.py

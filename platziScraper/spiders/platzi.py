@@ -65,12 +65,25 @@ class PlatziSpider(scrapy.Spider):
             courseDescription = response.xpath('//div[@class = "Hero-course-description"]/span/text()').get()
             courseTeachers = response.xpath('//h3[@class = "Teacher-name"]/text()').getall()
             courseBadge = response.xpath('//div[@class = "Hero-badge"]/figure/img/@src').get()
+            courseProyectTitle = response.xpath('//section[@class = "Project"]/div/div/div/h3/text()').get()
+            courseProyectDescription = response.xpath('//p[@class = "Project-description"]/text()').get()
+            courseProyectImage = response.xpath('//section[@class = "Project"]/div/figure/img/@src').get()
+            courseLearn = response.xpath('//div[@class = "LandingSkills-item col-xs-12 col-sm-6 col-md-5 has-trailer"]/p/text()').getall()
+            courseCommentsUser = response.xpath('//a[@class = "Testimonie-toProfile"]/@href').getall()
+            courseCommentsDescription = response.xpath('//div[@class = "Testimonie-description"]/p/text()').getall()
 
-            yield {
+            yield { 
                 '_id':None,
                 'course': courseTitle,
                 'description': courseDescription,
                 'teacher': courseTeachers,
+                'project': {
+                    'title': courseProyectTitle,
+                    'description':courseProyectDescription,
+                    'image': courseProyectImage
+                },
+                'With this course you can': courseLearn,
                 'url': URL + kwargs['link'],
-                'badge': courseBadge
+                'badge': courseBadge,
+                'comments': courseCommentsDescription
             }
