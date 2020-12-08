@@ -24,11 +24,13 @@ class PlatziSpider(scrapy.Spider):
     def parse(self, response):
         titleTypeCourses = response.xpath('//div[@class="CourseCategories-courses"]/h2/text()').getall()
         links = response.xpath('//div[@class = "CourseCategories-content"]/a/@href').getall()
+        numCourses = response.xpath('//div[@class = "CourseCategories-courses"]/span/text()').getall()
 
         for x in range(len(titleTypeCourses)):
             yield {
                 '_id': x,
                 'type course': titleTypeCourses[x],
+                'courses': numCourses[x],
                 'link': URL + links[x]
             }
 
@@ -37,26 +39,31 @@ class PlatziSpider(scrapy.Spider):
 
     def parseLinksTypeCourse(self, response, **kwargs):
         if kwargs['link']:
-            learningPathTitle = response.xpath('//div[@class = "LearningPathsList-content"]/a/div[@class = "LearningPathItem-elements"]/h2/text()').getall()
             learningPathLink = response.xpath('//a[@class = "LearningPathItem"]/@href').getall()
-            learningPathBadge = response.xpath('//div[@class = "LearningPathItem-badge"]/figure/img/@src').getall()
-
-            for x in range(len(learningPathTitle)):
-                yield {
-                    '_id': None,
-                    'learning path': learningPathTitle[x],
-                    'url': URL + learningPathLink[x],
-                    'badge': learningPathBadge[x]   
-                }
 
             for link in learningPathLink:
                 yield response.follow(link, callback=self.parseLinksLearningPath, cb_kwargs={'link': response.urljoin(link)})
 
     def parseLinksLearningPath(self, response, **kwargs):
         if kwargs['link']:
-            courseLink = response.xpath('//a[@class = "RoutesList-item"]/@href').getall()
+            learningPathTitle = response.xpath('//div[@class = "Hero-route-title"]/h1/text()').get()
+            learningPathDescription = response.xpath('//div[@class = "Hero-route-desc"]/span/text()').get()
+            learningPathBadge = response.xpath('//div[@class = "Hero-route-image"]/figure/img/@src').get()
+            learningPathCourseTitle = response.xpath('//h4[@class = "RoutesList-item-name"]/text()').getall()
+            learningPathCourseLink = response.xpath('//a[@class = "RoutesList-item"]/@href').getall()
+            learningPathTeachers = response.xpath('//div[@class = "TeachersV2-info"]/h4/text()').getall()
 
-            for link in courseLink:
+            yield {
+                '_id': None,
+                'learning Path': learningPathTitle,
+                'description': learningPathDescription,
+                'courses': learningPathCourseTitle,
+                'teachers': learningPathTeachers,
+                'badge': learningPathBadge,
+                'url': kwargs['link']
+            }
+
+            for link in learningPathCourseLink:
                 yield response.follow(link, callback=self.parseLinksCourse, cb_kwargs={'link': link})
 
     def parseLinksCourse(self, response, **kwargs):
@@ -68,7 +75,7 @@ class PlatziSpider(scrapy.Spider):
             courseProyectTitle = response.xpath('//section[@class = "Project"]/div/div/div/h3/text()').get()
             courseProyectDescription = response.xpath('//p[@class = "Project-description"]/text()').get()
             courseProyectImage = response.xpath('//section[@class = "Project"]/div/figure/img/@src').get()
-            courseLearn = response.xpath('//div[@class = "LandingSkills-item col-xs-12 col-sm-6 col-md-5 has-trailer"]/p/text()').getall()
+            courseLearn = response.xpath('//p[@class = "LadingSkills-image"]/text()').getall()
             courseCommentsUser = response.xpath('//a[@class = "Testimonie-toProfile"]/@href').getall()
             courseCommentsDescription = response.xpath('//div[@class = "Testimonie-description"]/p/text()').getall()
 
